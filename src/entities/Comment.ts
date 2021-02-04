@@ -3,9 +3,8 @@ import { User } from "./User";
 
 @Entity('comments')
 export class Comment {
-
     @PrimaryGeneratedColumn()
-    id: string
+    id: number
 
     @CreateDateColumn()
     createdAt: Date
@@ -17,12 +16,10 @@ export class Comment {
     body: string
 
     @ManyToOne(() => User)
-    author: User    
+    author: User
 
-    constructor(id: string, body: string, author: User) {
-        this.id = id;
-        this.body = body;
+    constructor(body : string, author: User) {
+        this.body = body
         this.author = author
     }
-
 }
