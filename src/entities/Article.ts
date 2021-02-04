@@ -1,21 +1,25 @@
-import { Column, CreateDateColumn, Entity,  ManyToOne, PrimaryColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryColumn, UpdateDateColumn } from "typeorm";
 import { User } from "./User";
-
 
 @Entity('articles')
 export class Article {
-   
-   @PrimaryColumn()
+   @PrimaryColumn({length: 40})
    slug: string
-   
+
    @Column({length: 50})
    title?: string
 
-   @Column({length: 100, nullable:true})
+   @Column({length: 100, nullable: true})
    description: string
 
    @Column({type: 'text'})
-   body: string
+   body:string
+
+   @Column({type: 'text', nullable:true})
+   tagList?: string[]
+
+   @Column({default:0})
+   favoritesCount?: number 
 
    @CreateDateColumn()
    createdAt: Date
@@ -26,11 +30,13 @@ export class Article {
    @ManyToOne(() => User)
    author: User
 
-   constructor (slug: string, title: string, description: string, body: string, author: User) {
-     this.slug = slug
-     this.title =title
-     this.description = description
-     this.body = body
-     this.author = author
+   constructor(slug: string, title: string ,description: string, body: string,tagList: string[], author: User) {
+
+      this.slug = slug,
+      this.title = title,
+      this.description = description,
+      this.body = body
+      this.tagList = tagList
+      this.author = author
    }
 }
