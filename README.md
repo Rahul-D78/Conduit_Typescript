@@ -8,12 +8,13 @@ This is an api for an blogging app based on `realworld.io` API . The frontend of
 3. express - framework
 4. TypeORM - ORM
 5. PostgreSQL - Database
-6. JWT -- auth
-7. Google OAuth -- auth
-8. React -- Frontend
-9. Redux -- State Management
-10. Testing -- Jest
-11. Material UI -- UI/UX
+6. Redis -- Cache
+7. JWT -- auth
+8. Google OAuth -- auth
+9. React -- Frontend
+10. Redux -- State Management
+11. Jest -- Testing
+12. Material UI -- UI/UX
 
 ## Language and Platform setup
 * This is project has been created using `Node.JS`,`typescript` and `postgressql` .
