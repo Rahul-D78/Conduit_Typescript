@@ -1,16 +1,34 @@
-import { Router } from 'express'
+import { Router, Request, Response, NextFunction } from 'express'
 import { createArticle, deleteArticle, getArticleBySlug, getArticles, updateArticle } from '../controllers/articles'
 import { authByToken } from '../middlewares/auth'
 // import { createArticle } from '../controllers/articles'
 
+import redis from 'redis'
+const client = redis.createClient(); 
+
 const router = Router()
 
 
+const redis_post = (req: Request, res: Response, next:NextFunction) => {
+  client.get('postData', (err, redis_data) => {
+  if(err) throw err
+  if(redis_data){
+  console.log('redis_data')
+  res.send(JSON.parse(redis_data)) 
+  }else{
+    next()
+  }
+  })
+}
+
 //GET  /articles ---> To GET recent article globally 
-router.get('/', async(req, res) => {
+router.get('/', redis_post,async(req, res) => {
     try{
         const articles = await getArticles()
-        res.status(200).send(articles)
+        
+       client.setex('postData', 60, JSON.stringify(articles)) 
+
+       res.status(200).send(articles)
     }catch(e) {
         res.status(500).send({
             err : `something went wrong ${e}`
@@ -36,7 +54,7 @@ router.get('/:slug', async(req, res) => {
 })
 
 //POST  /aticles -------> POST a new article
-router.post('/', authByToken,async(req, res) => {
+router.post('/', authByToken, async(req, res) => {
     try {
         const article = await createArticle(req.body.article, (req as any).user.email)
         res.status(200).send(article)
