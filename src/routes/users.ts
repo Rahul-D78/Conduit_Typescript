@@ -4,14 +4,14 @@ import { authByToken } from '../middlewares/auth'
 
 const router = Router()
 
-router.get('/', async(req, res) => {
+router.get('/:email' ,async(req, res) => {
    try{
-      const user = getUserByEmail(req.body.user)
+      const user = await getUserByEmail(req.params.email)
       if(!user) throw new Error('No such user with this email found')
       return res.status(200).send(user)
    }catch(e) {
        res.status(500).send({
-           err : `error occured while getting all the users ${e}`
+           err : `error while gettiing the user ${e.message}`
        })
    }
 })

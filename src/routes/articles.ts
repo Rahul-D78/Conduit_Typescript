@@ -3,12 +3,12 @@ import { createArticle, deleteArticle, getArticleBySlug, getArticles, updateArti
 import { authByToken } from '../middlewares/auth'
 // import { createArticle } from '../controllers/articles'
 
-import redis from 'redis'
-const client = redis.createClient(); 
+// import redis from 'redis'
+// const client = redis.createClient(); 
 
 const router = Router()
 
-
+/*
 const redis_post = (req: Request, res: Response, next:NextFunction) => {
   client.get('postData', (err, redis_data) => {
   if(err) throw err
@@ -20,13 +20,13 @@ const redis_post = (req: Request, res: Response, next:NextFunction) => {
   }
   })
 }
-
+*/
 //GET  /articles ---> To GET recent article globally 
-router.get('/', redis_post,async(req, res) => {
+router.get('/' ,async(req, res) => {
     try{
         const articles = await getArticles()
         
-       client.setex('postData', 60, JSON.stringify(articles)) 
+    //    client.setex('postData', 60, JSON.stringify(articles)) 
 
        res.status(200).send(articles)
     }catch(e) {

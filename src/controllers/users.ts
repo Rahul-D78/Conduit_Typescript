@@ -77,15 +77,15 @@ export async function loginUser(userLoginData: loginUserData) {
     }
 }
 
-export async function getUserByEmail(email: string) {
+export async function getUserByEmail(email: string): Promise<User> {
 
     const repo = getRepository(User)
     
     try {
-    const user = repo.findOne(email)
+    const user = await repo.findOne(email)
 
     if(!user) throw new Error('User with this email does not exists')
-    return user
+    return sanitization(user)
     }catch(e) {
         throw e
     }
