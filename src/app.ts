@@ -10,7 +10,7 @@ import { allRoutes } from './routes/allRoutes'
 const app = express()
 app.use(express.json())
 
-const PORT = process.env.PORT || 3000
+const PORT = process.env.PORT || 4000
 
 app.use(allRoutes)
 
@@ -31,7 +31,7 @@ async function start() {
         logger:'advanced-console'
     })
     app.listen(PORT, () => {
-        console.log(`serving the site on -----> http://localhost:3000`);
+        console.log(`serving the site on -----> http://localhost:${PORT}`);
         
     })
 }

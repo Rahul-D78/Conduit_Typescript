@@ -41,17 +41,24 @@ This is an api for an blogging app based on `realworld.io` API . The frontend of
 
 ```
 
-## Installation
-```$ npm install```
+## Installtion of the app
 
-## Testing 
-```$npm run test```
+```
+* Installation --(server{Node.JS})
+$ npm install
 
-## Running the server
-```$ npm run server```
+* Installation --(Client{React.JS})
+$npm run client-install
 
-## Running the client
-```$npm run client```
+* Testing 
+$npm run test
 
-## Running both client and server
-```$npm run dev```
+* Running the server
+$ npm run server
+
+* Running the client
+$npm run client
+
+* Running both client and server
+$npm run dev
+```
