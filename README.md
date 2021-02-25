@@ -1,7 +1,7 @@
 # Introduction :
 This is an api for an blogging app based on `realworld.io` API . The frontend of the project is build using `React.js` [Follow_Link](https://github.com/Rahul-D78/medium_frontend).
 
-## Technologies used 
+## Technologies used :
 
 1. typescript - programing language
 2. Nodejs - Platform 
@@ -16,11 +16,9 @@ This is an api for an blogging app based on `realworld.io` API . The frontend of
 11. Jest -- Testing
 12. Material UI -- UI/UX
 
-## Language and Platform setup
-* This is project has been created using `Node.JS`,`typescript` and `postgressql` .
-* You must have these installed on your system .
-* To work with `Typescript` you must have a typescript config file . The following command will create a tsconf file .
-```$ tsc --init```
+## Language and platform setup :
+* This is project has been created using `Node.JS`,`typescript`, `redis` and `postgressql` .
+* Make sure have the latest versions installed on your system .
 
 ## Database setup
 
@@ -46,5 +44,14 @@ This is an api for an blogging app based on `realworld.io` API . The frontend of
 ## Installation
 ```$ npm install```
 
-## Running the app
-```$ npm start```
+## Testing 
+```$npm run test```
+
+## Running the server
+```$ npm run server```
+
+## Running the client
+```$npm run client```
+
+## Running both client and server
+```$npm run dev```
