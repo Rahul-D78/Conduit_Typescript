@@ -1,8 +1,22 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import Navbar from './Navbar/Navbar'
+import Articles from './Articles/Articles'
+import { useDispatch } from 'react-redux';
+import { getPosts } from '../actions/posts';
 
 const App = () => {
+
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(getPosts());
+    }, [dispatch])
+
     return (
-        <h1>HELLO FRONTEND</h1>
+        <div>
+        <Navbar/>
+        <Articles/>
+        </div>
     )
 }
 
