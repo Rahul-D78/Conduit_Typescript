@@ -1,5 +1,5 @@
-import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryColumn, UpdateDateColumn } from "typeorm";
-import { User } from "./User";
+import { Column, CreateDateColumn, Entity, PrimaryColumn, UpdateDateColumn } from "typeorm";
+// import { User } from "./User";
 
 @Entity('articles')
 export class Article {
@@ -27,16 +27,18 @@ export class Article {
    @UpdateDateColumn()
    updatedAt: Date
 
-   @ManyToOne(() => User)
-   author: User
+   // @ManyToOne(() => User)
+   // author: User
 
-   constructor(slug: string, title: string ,description: string, body: string,tagList: string[], author: User) {
+   //TODO: author: User
+
+   constructor(slug: string, title: string ,description: string, body: string,tagList: string[]) {
 
       this.slug = slug,
       this.title = title,
       this.description = description,
       this.body = body
       this.tagList = tagList
-      this.author = author
+      // this.author = author
    }
 }

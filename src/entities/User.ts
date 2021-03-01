@@ -21,12 +21,12 @@ export class User {
 
     token?: string
 
-    @ManyToMany(() => Article)
-    @JoinTable()
-    favorites?: Article[]
+    // @ManyToMany(() => Article)
+    // @JoinTable()
+    // favorites?: Article[]
     
-    @OneToMany(type => Article, article => article.author)
-    articles: Article[]
+    // @OneToMany(type => Article, article => article.author)
+    // articles: Article[]
 
     constructor(email: string, username: string, password?: string, image?: string, bio?:string, favorites?: Article[]) {
       this.email = email
@@ -34,6 +34,6 @@ export class User {
       this.password = password
       this.image = image
       this.bio = bio
-      this.favorites = favorites
+      // this.favorites = favorites
     }
 }

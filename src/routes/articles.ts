@@ -54,9 +54,10 @@ router.get('/:slug', async(req, res) => {
 })
 
 //POST  /aticles -------> POST a new article
-router.post('/', authByToken, async(req, res) => {
+//TODO: authByToken , (req as any).user.email
+router.post('/',  async(req, res) => {
     try {
-        const article = await createArticle(req.body.article, (req as any).user.email)
+        const article = await createArticle(req.body)
         res.status(200).send(article)
     }catch(e) {
         console.log(e);
