@@ -8,11 +8,14 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import moment from 'moment';
 
+import {useDispatch} from 'react-redux';
+import {deleteArticle} from '../../../actions/posts';
 import useStyle from './styles'
 
 const Article = ({article, setCurrentSlug}) => {
 
     const classes = useStyle();
+    const dispatch = useDispatch();
 
     return (
         <div>
@@ -41,7 +44,7 @@ const Article = ({article, setCurrentSlug}) => {
                         Like
                         article.likeCount
                     </Button>
-                    <Button size="small" color="primary" onClick={() => {}}  >
+                    <Button size="small" color="primary" onClick={() => dispatch(deleteArticle(article.slug))}  >
                         <DeleteIcon fontSize="small" />
                         Delete
                     </Button>

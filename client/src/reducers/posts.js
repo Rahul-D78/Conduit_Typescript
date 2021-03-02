@@ -9,7 +9,10 @@ export default (posts = [], action) => {
 
         case 'UPDATE':
             return posts.map((post) => post.slug === action.payload.slug ? action.payload : post);    
-            
+        
+        case 'DELETE': 
+            return posts.filter((post) => post.slug !== action.payload);    
+        
         default:
             return posts;    
     }

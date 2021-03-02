@@ -82,9 +82,10 @@ router.patch('/:slug', async(req, res) =>{
     }
 })
 
-router.delete('/:slug', authByToken, async(req, res) => {
+// , (req as any).user.email authByToken,
+router.delete('/:slug',  async(req, res) => {
     try {
-        const article = await deleteArticle(req.params.slug, (req as any).user.email)
+        const article = await deleteArticle(req.params.slug)
         res.status(200).send({
             success: ['succesfully deleted' , article]
         })

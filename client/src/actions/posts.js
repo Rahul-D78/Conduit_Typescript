@@ -28,4 +28,14 @@ export const updateArticle = (slug, article) => async (dispatch) => {
     } catch (error) {
         console.log(error);
     }
-} 
+}
+
+export const deleteArticle = (slug) => async (dispatch) => {
+    try {
+        await api.deleteArticle(slug)
+        
+        dispatch({ type: 'DELETE', payload: slug })
+    } catch (error) {
+        console.log(error);
+    }
+}

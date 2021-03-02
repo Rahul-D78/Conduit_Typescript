@@ -9,4 +9,7 @@ export const fetchArticles = () => API.get('/articles')
 export const PostArticle = (newPost) => API.post('/articles', newPost) 
 
 //PATCH Request 
-export const updateArticle = (slug, updateArticle) => API.patch(`/articles/${slug}`, updateArticle)
+export const updateArticle = (slug, updateArticle) => API.patch(`/articles/${slug}`, updateArticle);
+
+//Delete Request
+export const deleteArticle = (slug) => API.delete(`/articles/${slug}`)

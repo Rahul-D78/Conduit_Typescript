@@ -115,16 +115,17 @@ export async function updateArticle(data: ArticleData, slug: string): Promise<Ar
     }
 }
 
-export async function deleteArticle(slug: string, email: string) {
+// , email: string
+export async function deleteArticle(slug: string) {
 
     try {
-        const repoU = getRepository(User)
-        const user = await repoU.findOne(email)
+        // const repoU = getRepository(User)
+        // const user = await repoU.findOne(email)
 
         const repo = getRepository(Article)
         const article = await repo.findOne(slug)
         
-        if(!repoU) throw new Error('unauthorized to delete an article')
+        // if(!repoU) throw new Error('unauthorized to delete an article')
         if(!article) throw new Error('Article with this slug not exists')
 
         repo.delete(article as unknown as Article)
