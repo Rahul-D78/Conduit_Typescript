@@ -87,25 +87,25 @@ export async function getArticleByFeed(email: string) {
    }
 
 }
-
-export async function updateArticle(data: ArticleData, slug: string, email: string): Promise<Article> {
+// TODO:email: string
+export async function updateArticle(data: ArticleData, slug: string): Promise<Article> {
     
     try {
        const repo = getRepository(Article)
        const article = await repo.findOne(slug)
 
-       const uRepo = getRepository(User)
-       const user = await uRepo.findOne(email)
+    //    const uRepo = getRepository(User)
+    //    const user = await uRepo.findOne(email)
 
        if(!article) throw new Error('Article does not exists')
-       if(!user) throw new Error('Please Login to update an a article')
+    //    if(!user) throw new Error('Please Login to update an a article')
 
        if(data.title) article.slug = slugify(data.title) 
        if(data.body) article.body = data.body
        if(data.description) article.description = data.description
        if(data.tagList) ( article.tagList as any) = data.tagList 
        if(data.title) article.title = data.title
-       if(user) await sanitization(user as any)
+    //    if(user) await sanitization(user as any)
 
        const updatedArticle = await repo.save(article as any)
        return updatedArticle

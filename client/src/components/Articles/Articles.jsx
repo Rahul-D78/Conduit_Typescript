@@ -6,7 +6,7 @@ import useStyle from './styles'
 import { useSelector } from 'react-redux';
 
 
-const Articles = props => {
+const Articles = ({ setCurrentSlug }) => {
 
     const classes = useStyle()
 
@@ -18,7 +18,7 @@ const Articles = props => {
             <Grid className={classes.content} container alignItems="stretch">
                 {articles.map((article) => (
                     <Grid item key={article.id} xs={12} sm={6} lg={3}>
-                        <Article article={article}/>
+                        <Article article={article} setCurrentSlug={setCurrentSlug} />
                     </Grid>
                     ))}
             </Grid>

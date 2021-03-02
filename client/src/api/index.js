@@ -7,3 +7,6 @@ export const fetchArticles = () => API.get('/articles')
 
 //POST Request
 export const PostArticle = (newPost) => API.post('/articles', newPost) 
+
+//PATCH Request 
+export const updateArticle = (slug, updateArticle) => API.patch(`/articles/${slug}`, updateArticle)

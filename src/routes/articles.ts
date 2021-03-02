@@ -68,10 +68,12 @@ router.post('/',  async(req, res) => {
     }
 })
 
-router.patch('/:slug', authByToken,async(req, res) =>{
+//TODO: authByToken, , (req as any).user.email , req.body.article
+
+router.patch('/:slug', async(req, res) =>{
     
     try {
-    const article = await updateArticle(req.body.article, req.params.slug, (req as any).user.email)
+    const article = await updateArticle(req.body, req.params.slug)
     res.status(200).send(article)
     }catch(e) {
         res.status(500).send({

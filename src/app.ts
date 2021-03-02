@@ -29,7 +29,7 @@ async function start() {
         password: 'conduit',
         database:'conduit',
         entities:[User, Article, Comment, Profile],
-        dropSchema:true,
+        // dropSchema:true,
         synchronize:true,
         logging:true,
         logger:'advanced-console'

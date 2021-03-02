@@ -10,7 +10,7 @@ import moment from 'moment';
 
 import useStyle from './styles'
 
-const Article = ({article}) => {
+const Article = ({article, setCurrentSlug}) => {
 
     const classes = useStyle();
 
@@ -24,7 +24,8 @@ const Article = ({article}) => {
                     
                 </div>
                 <div className={classes.overlay2}>
-                    <Button style={{ color: 'white' }} size="small" onClick={() => {}}>
+                    <Button style={{ color: 'white' }} size="small"
+                     onClick={() => setCurrentSlug(article.slug)}>
                         <MoreHorizIcon fontSize="default" />
                     </Button>
                 </div>

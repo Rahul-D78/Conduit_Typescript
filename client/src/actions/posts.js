@@ -19,3 +19,13 @@ export const createArticles = (post) => async (dispatch) => {
         console.log(error);
     }
 }
+
+export const updateArticle = (slug, article) => async (dispatch) => {
+    try {
+        const {data} = await api.updateArticle(slug, article)
+         
+        dispatch({ type: 'UPDATE', payload: data });
+    } catch (error) {
+        console.log(error);
+    }
+} 
