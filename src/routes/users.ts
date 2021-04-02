@@ -4,25 +4,23 @@ import { authByToken } from '../middlewares/auth'
 
 const router = Router()
 
-router.get('/:email' ,async(req, res) => {
-   try{
-      const user = await getUserByEmail(req.params.email)
-      if(!user) throw new Error('No such user with this email found')
-      return res.status(200).send(user)
-   }catch(e) {
-       res.status(500).send({
-           err : `error while gettiing the user ${e.message}`
-       })
-   }
-})
+// router.get('/:email' ,async(req, res) => {
+//    try{
+//       const user = await getUserByEmail(req.params.email)
+//       if(!user) throw new Error('No such user with this email found')
+//       return res.status(200).send(user)
+//    }catch(e) {
+//        res.status(500).send({
+//            err : `error while gettiing the user ${e.message}`
+//        })
+//    }
+// })
 
 //Login -----> existing user login
 router.post('/login', async(req, res) => {
    try{
-       const user = await loginUser(req.body.user)
-       res.status(200).send({
-        success : {body : ["success", user]}
-       })
+       const user = await loginUser(req.body)
+       res.status(200).send(user)
    }catch(e) {
     res.status(500).send({
         errors : {error : ["Login Failed", e.message]}
@@ -31,9 +29,9 @@ router.post('/login', async(req, res) => {
 })
 
 //POST --------> Register a new User
-router.post('/', async(req, res) => {
-    try {
-    const user = await registerUser(req.body.user)
+router.post('/register', async(req, res) => {
+    try {    
+    const user = await registerUser(req.body)
     return res.send(user)
     }catch(e) {
         res.status(500).send({

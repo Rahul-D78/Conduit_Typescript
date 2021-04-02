@@ -70,8 +70,10 @@ export async function loginUser(userLoginData: loginUserData) {
     if(passMatch == false) throw new Error("Wrong password");
 
     user.token = await sign(user)
-
+    console.log(user.token);
+    
     return sanitization(user)
+    
     }catch(e) {
         throw e
     }

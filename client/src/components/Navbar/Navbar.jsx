@@ -1,36 +1,138 @@
-import React from 'react';
-import {AppBar, Toolbar, IconButton, Badge, Typography } from '@material-ui/core'
+import React, { useState } from "react";
+import { Link, useHistory } from "react-router-dom";
+import { Avatar } from "@material-ui/core";
+import {useDispatch} from "react-redux";
+import Typography from "@material-ui/core/Typography";
+import Button from "@material-ui/core/Button";
+import MenuIcon from "@material-ui/icons/Menu";
+import CloseIcon from "@material-ui/icons/Close";
+import AppBar from "@material-ui/core/AppBar";
+import {Home, Add, SettingsApplications, Dashboard} from "@material-ui/icons";
+import IconButton from "@material-ui/core/IconButton";
+import Toolbar from "@material-ui/core/Toolbar";
+import useStyle from "./styles";
+// import SideBarData from "./SideBarData";
 
-import {NotificationsActive } from '@material-ui/icons';
+export default function Navbar() {
+  const history = useHistory();
+  const dispatch = useDispatch();
+  const classes = useStyle();
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')))
+  const [sideBar, setSideBar] = useState(false);
 
-// import logo from '../../assets'
+  const showSideBar = () => setSideBar(!sideBar);
 
-import useStyle from './styles'
+  const Logout = () => {
+    dispatch({type: 'LOGOUT'})
+    
+    history.push('/')
+    setUser(null)
+  }
+  
+  return (
+    <div className={classes.nav}>
+      <div className={classes.root}>
+        <AppBar position="fixed" style={{ backgroundColor: "#1c1c1c" }}>
+          <Toolbar>
+            <div>
+              <Link to="#">
+                <IconButton
+                  edge="start"
+                  className={classes.menuButton}
+                  color="inherit"
+                  aria-label="menu"
+                  onClick={showSideBar}
+                >
+                  <MenuIcon />
+                </IconButton>
+              </Link>
+            </div>
+            <nav className={sideBar ? classes.navMenu : classes.nMenuActive}>
+              {sideBar ? (
+                <ul onClick={showSideBar} style={{paddingLeft: "24px"}}>
+                  <li className={classes.navbarToggle}>
 
-const Navbar = () => {
+                  <Link
+                      style={{ color: "#ffff" }}
+                      to="#"
+                      className={classes.menuBar}
+                    >
+                      <CloseIcon />
+                    </Link>
+                  </li>
+                  <li className={classes.navText}>
+                  
 
-    const classes = useStyle();
+                    <Link
+                      to="/"
+                      style={{ textDecoration: "none", color: "#ffff" }}
+                    >
+                      <Home style={{marginBottom: "-4px"}}/>
+                      <span>Home</span>
+                    </Link>
+                  </li>
+                  <li className={classes.navText}>
+                    <Link
+                      to="/article"
+                      style={{ textDecoration: "none", color: "#ffff" }}
+                    >
+                      <Add style={{marginBottom: "-4px"}} />
+                      <span>Write A Post</span>
+                    </Link>
+                  </li>
+                  <li className={classes.navText}>
+                    <Link
+                      to="/admin"
+                      style={{ textDecoration: "none", color: "#ffff" }}
+                    >
+                      <Dashboard style={{marginBottom: "-4px"}} />
+                      <span>Dashboard</span>
+                    </Link>
+                  </li>
+                  
+                  <li className={classes.navText}>
+                    <Link
+                      to="/settings"
+                      style={{ textDecoration: "none", color: "#ffff" }}
+                    >
+                      <SettingsApplications  style={{marginBottom: "-4px"}}/>
+                      <span>settings</span>
+                    </Link>
+                  </li>
+                </ul>
+              ) : null}
+            </nav>
+            <Typography variant="h6" className={classes.title}>
+              <Link to="/" style={{ textDecoration: "none", color: "#ffff" }}>
+                LOGO
+              </Link>
+            </Typography>
+            <div>
+              {user ?(
+                    <div style={{display: "flex", justifyContent: "center", alignItems: "center"}}>
+                    <div style={{display: "flex", flexDirection: "row"}}> 
 
-    return (
-        <div>
-            <AppBar position="fixed" className={classes.appBar} color="inherit">
-                <Toolbar>
-                    <Typography variant="h6" className={classes.title} color="inherit">
-                        <img src='#' alt="text"  height="25px" className={classes.image} />
-                        logo name
-                    </Typography>
-                    <div className={classes.grow} />
-                    <div className={classes.button} >
-                        <IconButton aria-label="show products"> 
-                            <Badge badgeContent={2} color="secondary">
-                                <NotificationsActive/>
-                            </Badge>
-                        </IconButton>
+                        <Avatar size="small"  alt={user.name} src={user.image}>{user.name.charAt(0)}</Avatar>
+                        <div style={{margin:"2.5px 4px auto"}}>
+
+                        {/* <Typography variant="h6">{user.name}</Typography> */}
+                        </div> 
+                        <Button variant="contained" size="small" color="secondary" onClick={Logout}>Logout</Button>
                     </div>
-                </Toolbar>
-            </AppBar>
-        </div>
-    )
+                    </div>
+                ) : (
+                    <Button component={Link} to="/auth" variant="contained" color="primary">Sign IN</Button>
+                )}
+            </div>
+            {/* <Link
+              to="/login"
+              style={{ textDecoration: "none", color: "#ffff" }}
+            >
+              <Button color="inherit">Login</Button>
+            </Link> */}
+          </Toolbar>
+        </AppBar>
+      </div>
+    </div>
+  );
 }
-
-export default Navbar

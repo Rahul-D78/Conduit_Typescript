@@ -1,7 +1,6 @@
-import { Column, CreateDateColumn, Entity, PrimaryColumn, Unique, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, PrimaryColumn,  UpdateDateColumn } from "typeorm";
 // import { User } from "./User";
 
-@Unique(["slug"])
 @Entity('articles')
 export class Article {
    @PrimaryColumn({length: 40})

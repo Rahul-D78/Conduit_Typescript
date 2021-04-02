@@ -18,6 +18,10 @@ app.use(cors())
 app.use(bodyParser.urlencoded({extended:true}))
 app.use(allRoutes)
 
+// app.use((req, res) => {
+//     res.status(404).send('<h1>404 Page Not Found</h1>')
+// })
+
 app.get('/', (req, res) => {
     res.send('HI')
 })

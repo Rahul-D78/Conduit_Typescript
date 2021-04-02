@@ -1,6 +1,6 @@
 import { Router, Request, Response, NextFunction } from 'express'
-import { createArticle, deleteArticle, getArticleBySlug, getArticles, updateArticle } from '../controllers/articles'
-import { authByToken } from '../middlewares/auth'
+import { createArticle, deleteArticle, getArticleBySlug, getArticles, likePost, updateArticle } from '../controllers/articles'
+// import { authByToken } from '../middlewares/auth'
 // import { createArticle } from '../controllers/articles'
 
 // import redis from 'redis'
@@ -73,7 +73,7 @@ router.post('/',  async(req, res) => {
 router.patch('/:slug', async(req, res) =>{
     
     try {
-    const article = await updateArticle(req.body, req.params.slug)
+    const article = await updateArticle(req.body, (req as any).params.slug)
     res.status(200).send(article)
     }catch(e) {
         res.status(500).send({
@@ -85,13 +85,27 @@ router.patch('/:slug', async(req, res) =>{
 // , (req as any).user.email authByToken,
 router.delete('/:slug',  async(req, res) => {
     try {
-        const article = await deleteArticle(req.params.slug)
+        const article = await deleteArticle((req as any).params.slug)
         res.status(200).send({
             success: ['succesfully deleted' , article]
         })
     }catch(e) {
         res.status(500).send({
             err : `could not able to delete ${e}`
+        })
+    }
+})
+
+//Like an article
+router.patch('/like/:slug', async(req, res) => {
+    try {
+        const article = await likePost(req.params.slug)
+        res.status(200).send({
+            success: ['liked success', article]
+        })
+    } catch (e) {
+        res.status(500).send({
+            err: `could not able to like an post ${e.message}`
         })
     }
 })

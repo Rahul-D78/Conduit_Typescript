@@ -1,7 +1,7 @@
 import { getRepository } from "typeorm";
 import { Article } from "../entities/Article";
 import { User } from "../entities/User";
-import { sanitization } from "../utils/security";
+// import { sanitization } from "../utils/security";
 import {slugify} from './../utils/stringUtils'
 
 interface ArticleData {
@@ -46,7 +46,7 @@ export async function createArticle(data: ArticleData): Promise<Article> {
     }
 }
 
-export async function getArticles() {
+export async function getArticles(): Promise<Article[]> {
     
     try {
     const repo = getRepository(Article)
@@ -60,12 +60,12 @@ export async function getArticles() {
     }
 }
 
-export async function getArticleBySlug(slug: string) {
+export async function getArticleBySlug(slug: string): Promise<Article> {
     try {
         const repo = getRepository(Article)
         const article = await repo.findOne(slug)
 
-        // console.log(article);
+        console.log(article);
         if(!article) throw new Error('article with this slug not found')
         return article
     }catch(e) {
@@ -74,14 +74,14 @@ export async function getArticleBySlug(slug: string) {
 }
 
 //GET recent articles from the users that you follow
-export async function getArticleByFeed(email: string) {
+export async function getArticleByFeed(email: string): Promise<User> {
  
    try {
    const repo = getRepository(User)
    const feed = await repo.findOne(email)
    
    if(!feed) throw new Error("you don't have any recent feeds")
-   return 
+   return feed
    }catch(e) {
        throw e
    }
@@ -107,7 +107,7 @@ export async function updateArticle(data: ArticleData, slug: string): Promise<Ar
        if(data.title) article.title = data.title
     //    if(user) await sanitization(user as any)
 
-       const updatedArticle = await repo.save(article as any)
+       const updatedArticle = await repo.save(article)
        return updatedArticle
 
     }catch(e) {
@@ -128,9 +128,25 @@ export async function deleteArticle(slug: string) {
         // if(!repoU) throw new Error('unauthorized to delete an article')
         if(!article) throw new Error('Article with this slug not exists')
 
-        repo.delete(article as unknown as Article)
+        await repo.remove(article)
     }catch(e) {
         throw e
     }
     
+}
+
+export async function likePost(slug: string) {
+    
+    try {
+        const repo = getRepository(Article)
+        const article = await repo.findOne(slug)
+        
+        if(!article) throw new Error('No article with this slug exists');
+        article.favoritesCount = article.favoritesCount as any + 1;
+        const updatedArticle = await repo.save(article);
+    
+        return updatedArticle;
+    } catch (e) {
+        throw e
+    }
 }

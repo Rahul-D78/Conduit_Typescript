@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import { decode } from "../utils/jwt";
+import { custom, decode } from "../utils/jwt";
 
 export async function authByToken(req: Request, res: Response, next: NextFunction) {
 
@@ -13,13 +13,20 @@ export async function authByToken(req: Request, res: Response, next: NextFunctio
         errors : {body : ["Authorization failed", "Token missing"]}
     })
 
-    
     try {
         const token = authHeader[1];
-        
-        const user = await decode(token)
-        if(!user) throw new Error('No user found')
-        ;(req as any).user = user
+        const customAuth = token.length < 500;
+        let decodedData;
+
+        if(token && customAuth) {
+            decodedData = await decode(token)
+            if(!decodedData) throw new Error('No user found')
+            ;(req as any).user = decodedData
+        }else {
+            decodedData = await custom(token);
+            (req as any).user = decodedData
+        }
+
         return next()
     }catch(e) {
         res.status(500).send({

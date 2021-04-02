@@ -23,3 +23,7 @@ export async function decode(token: string):Promise<User> {
        })
    })
 }
+
+export async function custom(token :string) {
+    return jwt.decode(token)
+}
