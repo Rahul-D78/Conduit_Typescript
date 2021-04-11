@@ -1,7 +1,7 @@
 import { getRepository } from "typeorm";
 import { Article } from "../entities/Article";
 import { User } from "../entities/User";
-// import { sanitization } from "../utils/security";
+import { sanitization } from "../utils/security";
 import {slugify} from './../utils/stringUtils'
 
 interface ArticleData {
@@ -11,16 +11,15 @@ interface ArticleData {
     tagList: string[]
 }
 
-// TODO: email: string
 
-export async function createArticle(data: ArticleData): Promise<Article> {
+export async function createArticle(data: ArticleData, email: string): Promise<Article> {
 
     if(!data.body) throw new Error("Article body is absent")
     if(!data.description) throw new Error("description body is absent")
     if(!data.title) throw new Error("title body is absent")
 
     const articleRepo = getRepository(Article)
-    // const userRepo = getRepository(User)
+    const userRepo = getRepository(User)
     
     
     try {
@@ -29,8 +28,8 @@ export async function createArticle(data: ArticleData): Promise<Article> {
     if(exist) throw new Error('Change the article title this one already exists')
 
     
-        // const user = await userRepo.findOne(email)
-        // if(!user) throw new Error("user does not exists")
+        const user = await userRepo.findOne(email)
+        if(!user) throw new Error("user does not exists")
      
         const article = await articleRepo.save(new Article(
             slugify(data.title),
@@ -38,7 +37,8 @@ export async function createArticle(data: ArticleData): Promise<Article> {
             data.description,
             data.body,
             data.tagList,
-            // await sanitization(user) 
+            await sanitization(user),
+            user?.username
         ))
         return article
     }catch(e) {

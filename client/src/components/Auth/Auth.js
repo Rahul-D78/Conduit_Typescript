@@ -11,7 +11,7 @@ import { AUTH } from '../../constants/actionTypes';
 import useStyles from './styles';
 import Input from './Input';
 
-const initialState = { name: '', email: '', password: '' };
+const initialState = { username: '', email: '', password: '' };
 
 const SignUp = () => {
   const [form, setForm] = useState(initialState);
@@ -52,7 +52,7 @@ const SignUp = () => {
     }
   };
 
-  const googleError = () => console.log('Google Sign In was unsuccessful. Try again later');
+  const googleFailure = () => console.log('Google Sign In was unsuccessful. Try again later');
 
   const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
 
@@ -67,7 +67,7 @@ const SignUp = () => {
           <Grid container spacing={2}>
             { isSignup && (
             <>
-              <Input name="name" label="name" handleChange={handleChange} autoFocus half />
+              <Input name="username" label="username" handleChange={handleChange} autoFocus half />
             </>
             )}
             <Input name="email" label="Email Address" handleChange={handleChange} type="email" />
@@ -84,7 +84,7 @@ const SignUp = () => {
               </Button>
             )}
             onSuccess={googleSuccess}
-            onFailure={googleError}
+            onFailure={googleFailure}
             cookiePolicy="single_host_origin"
           />
           <Grid container justify="flex-end">

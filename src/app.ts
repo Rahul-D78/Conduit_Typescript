@@ -18,9 +18,9 @@ app.use(cors())
 app.use(bodyParser.urlencoded({extended:true}))
 app.use(allRoutes)
 
-// app.use((req, res) => {
-//     res.status(404).send('<h1>404 Page Not Found</h1>')
-// })
+app.use((req, res) => {
+    res.status(404).send('<h1>404 Page Not Found</h1>')
+})
 
 app.get('/', (req, res) => {
     res.send('HI')
@@ -33,7 +33,7 @@ async function start() {
         password: 'conduit',
         database:'conduit',
         entities:[User, Article, Comment, Profile],
-        // dropSchema:true,
+        dropSchema:true,
         synchronize:true,
         logging:true,
         logger:'advanced-console'

@@ -10,6 +10,7 @@ let Marked = require("marked");
 
 function Form({ currentSlug, setCurrentSlug }) {
 
+    const user = JSON.parse(localStorage.getItem('profile'))
     const classes = useStyle();
     const history = useHistory();
     const dispatch = useDispatch();
@@ -23,13 +24,13 @@ function Form({ currentSlug, setCurrentSlug }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [article])
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         if(currentSlug) {
             dispatch(updateArticle(currentSlug, postData))
         }else {
 
-            dispatch(createArticles(postData, history))
+            dispatch(createArticles({...postData , name: user?.username}, history))
         }
         // clear()
     }
@@ -38,6 +39,14 @@ function Form({ currentSlug, setCurrentSlug }) {
     //     setCurrentSlug("");
     //     setPostData({ title:"", description:"", body:""})
     // }
+
+    if(!user?.username) {
+        return(
+            <Typography variant="h6" align="center">
+                Please login to create a post and like other's post
+            </Typography>
+        )
+    }
 
     return (
         <Paper className={classes.paper}>

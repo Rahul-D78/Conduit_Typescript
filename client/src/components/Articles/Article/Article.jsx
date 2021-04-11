@@ -27,6 +27,7 @@ import { deleteArticle, likeArticle } from "../../../actions/posts";
 export default function MediaCard({ article }) {
   const dispatch = useDispatch();
   const classes = useStyle();
+  // const user = JSON.parse(localStorage.getItem('profile'))
   // const history = useHistory();
 
   // const navigateMe = () => {
@@ -52,7 +53,8 @@ export default function MediaCard({ article }) {
                   // variant="h5"
                   // component="h5"
                 >
-                Name
+                {/* {console.log(article.author)} */}
+                {article.name}
                 </Typography>
               </div>
               

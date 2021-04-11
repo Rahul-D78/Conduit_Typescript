@@ -3,8 +3,8 @@ import { custom, decode } from "../utils/jwt";
 
 export async function authByToken(req: Request, res: Response, next: NextFunction) {
 
+    
     const authHeader = req.header('authorization')?.split(' ')
-
     if(!authHeader) return res.status(401).send({
         errors : {body : ["Authorization failed"]}
     })

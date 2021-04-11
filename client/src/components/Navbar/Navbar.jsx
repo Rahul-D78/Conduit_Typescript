@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Link, useHistory } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link, useHistory, useLocation } from "react-router-dom";
 import { Avatar } from "@material-ui/core";
 import {useDispatch} from "react-redux";
 import Typography from "@material-ui/core/Typography";
@@ -14,10 +14,11 @@ import useStyle from "./styles";
 // import SideBarData from "./SideBarData";
 
 export default function Navbar() {
+  const location = useLocation();
   const history = useHistory();
   const dispatch = useDispatch();
   const classes = useStyle();
-  const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')))
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile'))?.result)
   const [sideBar, setSideBar] = useState(false);
 
   const showSideBar = () => setSideBar(!sideBar);
@@ -28,6 +29,21 @@ export default function Navbar() {
     history.push('/')
     setUser(null)
   }
+
+  useEffect(() => {
+    //check for the token
+    // const token = user?.token;
+    // const result = user?.result;
+    // console.log(user.result.name);
+    // console.log(result?.name.charAt(0));
+    //JWT....... Token expiry validation 
+    // if(token) {
+    //     const decodedToken = decode(token);
+    //     if(decodedToken.exp * 1000 < new Date().getTime()) Logout();
+    // }
+    setUser(JSON.parse(localStorage.getItem('profile')))
+// eslint-disable-next-line react-hooks/exhaustive-deps
+}, [location])
   
   return (
     <div className={classes.nav}>
@@ -111,9 +127,9 @@ export default function Navbar() {
               {user ?(
                     <div style={{display: "flex", justifyContent: "center", alignItems: "center"}}>
                     <div style={{display: "flex", flexDirection: "row"}}> 
+                    <Avatar size="small"  alt={user?.result?.name} src={user?.result?.imageUrl}>{user?.result?.name?.charAt(0)}</Avatar>
 
-                        <Avatar size="small"  alt={user.name} src={user.image}>{user.name.charAt(0)}</Avatar>
-                        <div style={{margin:"2.5px 4px auto"}}>
+                    <div style={{margin:"2.5px 4px auto"}}>
 
                         {/* <Typography variant="h6">{user.name}</Typography> */}
                         </div> 

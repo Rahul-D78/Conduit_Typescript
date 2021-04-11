@@ -1,5 +1,6 @@
 import { Router, Request, Response, NextFunction } from 'express'
 import { createArticle, deleteArticle, getArticleBySlug, getArticles, likePost, updateArticle } from '../controllers/articles'
+import { authByToken } from '../middlewares/auth'
 // import { authByToken } from '../middlewares/auth'
 // import { createArticle } from '../controllers/articles'
 
@@ -54,10 +55,9 @@ router.get('/:slug', async(req, res) => {
 })
 
 //POST  /aticles -------> POST a new article
-//TODO: authByToken , (req as any).user.email
-router.post('/',  async(req, res) => {
+router.post('/',  authByToken,async(req, res) => {
     try {
-        const article = await createArticle(req.body)
+        const article = await createArticle(req.body, (req as any).user.email)
         res.status(200).send(article)
     }catch(e) {
         console.log(e);
