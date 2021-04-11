@@ -127,7 +127,7 @@ export default function Navbar() {
               {user ?(
                     <div style={{display: "flex", justifyContent: "center", alignItems: "center"}}>
                     <div style={{display: "flex", flexDirection: "row"}}> 
-                    <Avatar size="small"  alt={user?.result?.name} src={user?.result?.imageUrl}>{user?.result?.name?.charAt(0)}</Avatar>
+                    <Avatar size="small"  alt={user?.result?.name} src={user?.result?.imageUrl}>{user?.result?.name?.charAt(0) || user?.username.charAt(0)}</Avatar>
 
                     <div style={{margin:"2.5px 4px auto"}}>
 

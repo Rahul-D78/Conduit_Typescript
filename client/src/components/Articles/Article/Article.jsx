@@ -27,11 +27,24 @@ import { deleteArticle, likeArticle } from "../../../actions/posts";
 export default function MediaCard({ article }) {
   const dispatch = useDispatch();
   const classes = useStyle();
-  // const user = JSON.parse(localStorage.getItem('profile'))
+  const user = JSON.parse(localStorage.getItem('profile'))
   // const history = useHistory();
 
   // const navigateMe = () => {
   //   history.push("/article");
+  // };
+
+  // const Likes = () => {
+  //   if (article.likes.length > 0) {
+  //     return post.likes.find((like) => like === (user?.result?.googleId || user?.result?._id))
+  //       ? (
+  //         <><ThumbUpAltIcon fontSize="small" />&nbsp;{post.likes.length > 2 ? `You and ${post.likes.length - 1} others` : `${post.likes.length} like${post.likes.length > 1 ? 's' : ''}` }</>
+  //       ) : (
+  //         <><ThumbUpAltOutlined fontSize="small" />&nbsp;{post.likes.length} {post.likes.length === 1 ? 'Like' : 'Likes'}</>
+  //       );
+  //   }
+
+  //   return <><ThumbUpAltOutlined fontSize="small" />&nbsp;Like</>;
   // };
 
   return (
@@ -46,7 +59,7 @@ export default function MediaCard({ article }) {
             />
             <CardContent style={{paddingBottom: "0"}}>
               <div className={classes.row}>
-                <Avatar size="small" />
+                <Avatar size="small"  alt={article?.name?.charAt(0)} src={article?.name?.charAt(0)}>{user?.result?.name?.charAt(0)}</Avatar>
                 <Typography
                   style={{ marginLeft: "5px", marginTop: "0px" }}
                   gutterBottom
