@@ -43,7 +43,7 @@ router.get('/feed', (req, res) => {
 })
 
 //GET ------> To get an article with the slug
-router.get('/:slug', async(req, res) => {
+router.get('/:slug', authByToken,async(req, res) => {
     try {
         const article = await getArticleBySlug((req as any).params.slug)
         res.status(200).send(article)

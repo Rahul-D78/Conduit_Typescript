@@ -8,7 +8,7 @@ export async function sign(user: User):Promise<string> {
         jwt.sign({
             username: user.username,
             email: user.email
-        }, secret, (err: any, encoded: string | undefined) => {
+        }, secret, {expiresIn: '1h'},(err: any, encoded: string | undefined) => {
             if(err) throw reject(err)
             return resolve(encoded as string)
         })

@@ -1,6 +1,9 @@
 # Introduction :
 This is an api for an blogging app based on `realworld.io` API . The frontend of the project is build using `React.js`
 
+<p align="center">Bloggy - A blogging platform</p>
+
+
 ## Technologies used :
 
 1. typescript - programing language
@@ -62,3 +65,8 @@ $npm run client
 * Running both client and server
 $npm run dev
 ```
+
+## Deployment
+Here i follow multi-tire architecture in `AWS` for the deployment purpose and `DevOps` as a deployment methedolgy .
+ 
+Please follow this link if you want to know how to implement a [DevOps and AWS deployment](http://dev.to/nodejs-deployment-with-DevOps-on-AWS)

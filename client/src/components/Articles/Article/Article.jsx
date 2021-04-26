@@ -5,7 +5,6 @@ import moment from "moment"
 
 import useStyle from './styles'
 
-
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
@@ -20,7 +19,7 @@ import FavoriteIcon from "@material-ui/icons/Favorite";
 //-------------- Redux imports start -------
 
 import { useDispatch } from "react-redux";
-import { deleteArticle, likeArticle } from "../../../actions/posts";
+import { deleteArticle, likeArticle} from "../../../actions/posts";
 
 //-------------- Redux imports end ---------
 
@@ -29,10 +28,6 @@ export default function MediaCard({ article }) {
   const classes = useStyle();
   const user = JSON.parse(localStorage.getItem('profile'))
   // const history = useHistory();
-
-  // const navigateMe = () => {
-  //   history.push("/article");
-  // };
 
   // const Likes = () => {
   //   if (article.likes.length > 0) {
@@ -59,14 +54,13 @@ export default function MediaCard({ article }) {
             />
             <CardContent style={{paddingBottom: "0"}}>
               <div className={classes.row}>
-                <Avatar size="small"  alt={article?.name?.charAt(0)} src={article?.name?.charAt(0)}>{user?.result?.name?.charAt(0)}</Avatar>
+                <Avatar size="small"  alt={article?.name?.charAt(0)} src={article?.name?.charAt(0)}></Avatar>
                 <Typography
                   style={{ marginLeft: "5px", marginTop: "0px" }}
                   gutterBottom
                   // variant="h5"
                   // component="h5"
                 >
-                {/* {console.log(article.author)} */}
                 {article.name}
                 </Typography>
               </div>
@@ -100,10 +94,12 @@ export default function MediaCard({ article }) {
             </Button> */}
             <Button size="small" color="primary" onClick={() => dispatch(likeArticle(article.slug))}><FavoriteIcon fontSize="small" /> Like {article.favoritesCount} </Button>
             <div className={classes.right}>
-              <Button size="small" color="primary">
-               
+                {(user?.result?.googleId === article?.name || user?.username === article?.name) &&(
+                <Button size="small" color="primary">
+
                 <DeleteIcon onClick={() => dispatch(deleteArticle(article.slug))} style={{ textAlign: "right" }} />
-              </Button>
+                </Button>
+                )}
             </div>
           </CardActions>
         </Card>

@@ -18,7 +18,7 @@ export default function Navbar() {
   const history = useHistory();
   const dispatch = useDispatch();
   const classes = useStyle();
-  const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile'))?.result)
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')))
   const [sideBar, setSideBar] = useState(false);
 
   const showSideBar = () => setSideBar(!sideBar);
@@ -127,7 +127,7 @@ export default function Navbar() {
               {user ?(
                     <div style={{display: "flex", justifyContent: "center", alignItems: "center"}}>
                     <div style={{display: "flex", flexDirection: "row"}}> 
-                    <Avatar size="small"  alt={user?.result?.name} src={user?.result?.imageUrl}>{user?.result?.name?.charAt(0) || user?.username.charAt(0)}</Avatar>
+                    <Avatar size="small"  alt={user?.result?.name || user?.username?.charAt(0)} src={user?.result?.imageUrl || user?.username?.charAt(0)}>{user?.result?.name?.charAt(0) || user?.profile?.username?.charAt(0)}</Avatar>
 
                     <div style={{margin:"2.5px 4px auto"}}>
 

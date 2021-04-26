@@ -1,13 +1,14 @@
-import React, { useEffect, useState } from 'react'
-import Navbar from './Navbar/Navbar'
+import React, { useEffect, useState } from 'react';
+import Navbar from './Navbar/Navbar';
 import Form from './Form/Form';
-import Auth from './Auth/Auth'
+import Auth from './Auth/Auth';
 import SignUp from "./Auth/SignUp/SignUp"
 import Login from "./Auth/Login/Login";
-import Admin from "./Admin/Admin"
-import {BrowserRouter, Route, Switch} from 'react-router-dom'
+import Admin from "./Admin/Admin";
+import Read from "./Articles/Article/Read";
+import {BrowserRouter, Route, Switch} from 'react-router-dom';
 import { Container, Grow } from '@material-ui/core';
-import Articles from './Articles/Articles'
+import Articles from './Articles/Articles';
 import { useDispatch } from 'react-redux';
 import { getPosts } from '../actions/posts';
 
@@ -27,6 +28,7 @@ const App = () => {
 
         <Grow in>
                 <Switch>
+                    <Route component={Read} path="/read" exact setCurrentSlug={currentSlug}/>
                     <Route  component={Login} path="/login" exact setCurrentSlug={setCurrentSlug}/>
                     <Route  component={SignUp} path="/signup" exact setCurrentSlug={setCurrentSlug}/>
                     <Route  component={Auth} path="/auth" exact setCurrentSlug={setCurrentSlug}/>

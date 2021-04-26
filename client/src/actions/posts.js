@@ -10,11 +10,12 @@ export const getPosts = () => async (dispatch) => {
     }
 }
 
-export const getPostBySlug = (slug) => async (dispatch) => {
+export const getPostBySlug = (slug, history) => async (dispatch) => {
     try {
         const { data } = await api.fetchArticleBySlug(slug)
 
         dispatch({ type: 'FETCH', payload: data })
+        history.push(`/read`)
     } catch (e) {
         console.log(e);
     }

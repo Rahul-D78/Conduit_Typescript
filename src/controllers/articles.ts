@@ -65,7 +65,6 @@ export async function getArticleBySlug(slug: string): Promise<Article> {
         const repo = getRepository(Article)
         const article = await repo.findOne(slug)
 
-        console.log(article);
         if(!article) throw new Error('article with this slug not found')
         return article
     }catch(e) {
